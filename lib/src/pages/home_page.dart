@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:formvalidation/src/blocs/provider.dart';
+// import 'package:formvalidation/src/blocs/provider.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of(context);
+    // final bloc = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Home page'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Email:${bloc.email}'),
-          Divider(),
-          Text('Password: ${bloc.password}'),
-        ],
-      ),
+      body: Container(),
+      floatingActionButton: _crearBoton(context),
+    );
+  }
+
+  Widget _crearBoton(BuildContext context) {
+    return FloatingActionButton(
+      child: Icon(Icons.add),
+      backgroundColor: Colors.deepPurple,
+      onPressed: () => Navigator.pushNamed(context, 'product'),
     );
   }
 }
