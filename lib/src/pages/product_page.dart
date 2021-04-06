@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:formvalidation/src/models/producto_model.dart';
+import 'package:formvalidation/src/services/producto_provider.dart';
 import 'package:formvalidation/src/utils/utils.dart' as utils;
 
 class ProductPage extends StatefulWidget {
@@ -9,7 +11,9 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   final formKey = GlobalKey<FormState>();
+  final productoProvider = new ProductsProvider();
 
+  Producto producto = new Producto();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +34,7 @@ class _ProductPageState extends State<ProductPage> {
               children: [
                 _crearNombre(),
                 _crearPrecio(),
+                _crearDisponible(),
                 _crearBoton(),
               ],
             ),
@@ -41,6 +46,7 @@ class _ProductPageState extends State<ProductPage> {
 
   Widget _crearNombre() {
     return TextFormField(
+      initialValue: producto.titulo,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Producto'),
       validator: (value) {
@@ -49,11 +55,13 @@ class _ProductPageState extends State<ProductPage> {
         } else
           return null;
       },
+      onSaved: (value) => producto.titulo = value,
     );
   }
 
   Widget _crearPrecio() {
     return TextFormField(
+      initialValue: producto.valor.toString(),
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(labelText: 'Precio MXN.00'),
       validator: (value) {
@@ -62,6 +70,7 @@ class _ProductPageState extends State<ProductPage> {
         } else
           return 'Solo números';
       },
+      onSaved: (value) => producto.valor = double.parse(value),
     );
   }
 
@@ -80,12 +89,26 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
+  Widget _crearDisponible() {
+    return SwitchListTile(
+      value: producto.disponible,
+      title: Text('Disponible'),
+      activeColor: Colors.deepPurple,
+      onChanged: (value) => setState(() {
+        producto.disponible = value;
+      }),
+    );
+  }
+
   void _submit() {
     if (!formKey.currentState.validate()) return;
 
-    print('Todo okay');
-    // if (formKey.currentState.validate()) {
-    //   //Cuando el formulario es válido
-    // }
+    formKey.currentState.save();
+
+    print(producto.titulo);
+    print(producto.valor);
+    print(producto.disponible);
+
+    productoProvider.creaProducto(producto);
   }
 }
