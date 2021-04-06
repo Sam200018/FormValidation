@@ -44,4 +44,13 @@ class ProductsProvider {
     print(decodedData);
     return true;
   }
+
+  Future<bool> editarProducto(Producto producto) async {
+    final String id = producto.id;
+    final url = '$_url/productos/$id.json';
+    final resp = await http.put(Uri.parse(url), body: productoToJson(producto));
+    final decodedData = json.decode(resp.body);
+    print(decodedData);
+    return true;
+  }
 }

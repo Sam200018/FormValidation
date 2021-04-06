@@ -4,14 +4,20 @@ import 'package:formvalidation/src/models/producto_model.dart';
 import 'package:formvalidation/src/services/producto_provider.dart';
 // import 'package:formvalidation/src/blocs/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final productosProvider = new ProductsProvider();
+
   @override
   Widget build(BuildContext context) {
     // final bloc = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home page'),
+        title: Text('Productos'),
       ),
       body: _crearListado(),
       floatingActionButton: _crearBoton(context),
@@ -52,7 +58,9 @@ class HomePage extends StatelessWidget {
       child: ListTile(
         title: Text('${producto.titulo} - ${producto.valor}'),
         subtitle: Text(producto.id),
-        onTap: () => Navigator.pushNamed(context, 'product'),
+        onTap: () =>
+            Navigator.pushNamed(context, 'product', arguments: producto)
+                .then((value) => setState(() {})),
       ),
     );
   }
@@ -61,7 +69,8 @@ class HomePage extends StatelessWidget {
     return FloatingActionButton(
       child: Icon(Icons.add),
       backgroundColor: Colors.deepPurple,
-      onPressed: () => Navigator.pushNamed(context, 'product'),
+      onPressed: () => Navigator.pushNamed(context, 'product')
+          .then((value) => setState(() {})),
     );
   }
 }
