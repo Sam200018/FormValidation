@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:formvalidation/src/blocs/login_bloc.dart';
 import 'package:formvalidation/src/blocs/provider.dart';
 
-class LoginPage extends StatelessWidget {
+class SignPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-      children: [
-        _crearFondo(context),
-        _loginForm(context),
-      ],
-    ));
+      body: Stack(
+        children: [
+          _crearFondo(context),
+          _loginForm(context),
+        ],
+      ),
+    );
   }
 
   Widget _crearFondo(BuildContext context) {
@@ -91,7 +92,7 @@ class LoginPage extends StatelessWidget {
                 ]),
             child: Column(
               children: [
-                Text('Ingreso', style: TextStyle(fontSize: 20.0)),
+                Text('Crear cuenta', style: TextStyle(fontSize: 20.0)),
                 SizedBox(height: 60.0),
                 _crearEmail(bloc),
                 SizedBox(height: 30.0),
@@ -102,8 +103,8 @@ class LoginPage extends StatelessWidget {
             ),
           ),
           TextButton(
-              onPressed: () => Navigator.pushReplacementNamed(context, 'sign'),
-              child: Text('Crear una nueva cuenta'))
+              onPressed: () => Navigator.pushReplacementNamed(context, 'login'),
+              child: Text('¿Ya tienes cuenta?'))
         ],
       ),
     );
