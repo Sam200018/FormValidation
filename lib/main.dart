@@ -6,12 +6,21 @@ import 'package:formvalidation/src/pages/home_page.dart';
 import 'package:formvalidation/src/pages/login_page.dart';
 import 'package:formvalidation/src/pages/product_page.dart';
 import 'package:formvalidation/src/pages/sign_page.dart';
+import 'src/preferencias_usuario/preferencias_usuario.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  final prefs = new PreferenciasUsuario();
+  await prefs.initPrefs();
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final prefs = new PreferenciasUsuario();
+    print(prefs);
+
     return Provider(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

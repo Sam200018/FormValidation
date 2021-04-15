@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:formvalidation/src/blocs/login_bloc.dart';
 import 'package:formvalidation/src/blocs/provider.dart';
+import 'package:formvalidation/src/services/user_provider.dart';
 
 class SignPage extends StatelessWidget {
+  final newUser = new UserProvider();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,17 +173,16 @@ class SignPage extends StatelessWidget {
             primary: Colors.deepPurple,
             textStyle: TextStyle(color: Colors.white),
           ),
-          onPressed: snapshot.hasData ? () => _login(bloc, context) : null,
+          onPressed: snapshot.hasData ? () => _register(bloc, context) : null,
         );
       },
     );
   }
 
-  _login(LoginBloc bloc, BuildContext context) {
-    print('=========');
-    print('email: ${bloc.email}');
-    print('password:${bloc.password}');
-    print('=========');
-    Navigator.pushReplacementNamed(context, 'home');
+  _register(LoginBloc bloc, BuildContext context) {
+    newUser.nuevoUsuario(bloc.email, bloc.password);
+
+    // Navigator.pushReplacementNamed(context, 'home');
+    //
   }
 }
