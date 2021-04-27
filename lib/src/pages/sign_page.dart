@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:formvalidation/src/blocs/login_bloc.dart';
 import 'package:formvalidation/src/blocs/provider.dart';
 import 'package:formvalidation/src/services/user_provider.dart';
+import 'package:formvalidation/src/utils/utils.dart';
 
 class SignPage extends StatelessWidget {
   final newUser = new UserProvider();
@@ -179,10 +180,12 @@ class SignPage extends StatelessWidget {
     );
   }
 
-  _register(LoginBloc bloc, BuildContext context) {
-    newUser.nuevoUsuario(bloc.email, bloc.password);
-
-    // Navigator.pushReplacementNamed(context, 'home');
-    //
+  _register(LoginBloc bloc, BuildContext context) async {
+    Map info = await newUser.nuevoUsuario(bloc.email, bloc.password);
+    if (info['ok']) {
+      Navigator.pushReplacementNamed(context, 'home');
+    } else {
+      mostrarAlerta(context, info['mensaje']);
+    }
   }
 }
